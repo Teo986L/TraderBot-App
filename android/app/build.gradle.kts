@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.traderbot.app"
-        minSdk = 29 // Android 10
+        minSdk = 29
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.0"
@@ -42,6 +42,7 @@ android {
     
     buildFeatures {
         viewBinding = true
+        dataBinding = false
     }
 }
 
