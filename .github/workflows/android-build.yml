@@ -26,6 +26,16 @@ jobs:
     - name: 🔧 Dar permissão ao Gradle
       run: chmod +x android/gradlew
       
+    - name: 🔧 Limpar cache (opcional)
+      run: |
+        cd android
+        ./gradlew clean
+      
+    - name: 🔧 Atualizar Gradle wrapper
+      run: |
+        cd android
+        ./gradlew wrapper --gradle-version 8.6
+      
     - name: 🏗️ Compilar APK Debug
       run: |
         cd android
