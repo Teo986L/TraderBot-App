@@ -23,8 +23,19 @@ jobs:
     - name: 🤖 Configurar Android SDK
       uses: android-actions/setup-android@v3
       
-    - name: 🔧 Permissão Gradle
-      run: chmod +x android/gradlew
+    - name: 🔧 Listar pastas (diagnóstico)
+      run: ls -la
+      
+    - name: 🔧 Verificar permissão
+      run: |
+        if [ -f "android/gradlew" ]; then
+          echo "✅ android/gradlew encontrado"
+          chmod +x android/gradlew
+        else
+          echo "❌ android/gradlew NÃO encontrado"
+          ls -la android/
+          exit 1
+        fi
       
     - name: 🏗️ Compilar APK Debug
       run: |
@@ -36,3 +47,10 @@ jobs:
       with:
         name: app-debug
         path: android/app/build/outputs/apk/debug/app-debug.apk
+      
+    - name: 📦 Salvar APK alternativo (caso mude de lugar)
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-logs
+        path: android/app/build/outputs/logs/
